@@ -1,0 +1,24 @@
+html
+    head
+        title Protected Page
+    body
+        include ./header.pug
+        p(style="text-align:center")
+            img(src = "cookie.gif", width=widthcookie  alt="Cookie")
+        p Input XSS here:
+        form
+            textarea(name="xssfield", cols="50", rows="4")
+            div
+                div(style="float:left")
+                    button(type="submit",formaction="/sessionxss/show", formmethod="POST") Show
+                div(style="float:left")
+                    button(type="submit",formaction="/sessionxss/list", formmethod="POST") List
+                div(style="float:left")
+                    button(type="submit",formaction="/sessionxss/store", formmethod="POST") Store
+                div(style="float:left")
+                    button(type="submit",formaction="/sessionxss/clear", formmethod="POST") Clear
+        br
+        div(id="xsscontent")
+        br
+        form(action="/sessionxss/logout", method = "POST")
+            button(type="submit") Logout

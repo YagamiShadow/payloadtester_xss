@@ -1,0 +1,18 @@
+html
+    head
+        title Login Page
+    body
+        include ./header.pug
+        form(action="/sessionxss/login", method = "POST")
+            p Enter Login data
+            div
+                label(for="user") Username:
+                input(name="user")
+            br
+            div
+                label(for="pass") Password:
+                input(name="pass" type="password")
+            br
+            p #{message}
+            br
+            button(type="submit") Login
