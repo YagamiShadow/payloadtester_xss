@@ -51,8 +51,7 @@ function setupParserAndSessionManagement() {
 	    secret: auth.makeid(),
         resave: true,
         saveUninitialized: true,
-	    httpOnly: false,
-	    secure: false
+        cookie: { httpOnly: false, secure: false }
     }));
 
 }
