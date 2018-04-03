@@ -1,3 +1,6 @@
+// Constants
+const PORT=3000;
+
 var express = require('express');
 app = express();
 
@@ -6,8 +9,6 @@ setupParserAndSessionManagement();
 setupRoutes();
 var __ret = setupDB();
 db = __ret.db;
-
-const PORT=3000
 
 console.log("[Express] service started localhost:"+PORT);
 app.listen(PORT);
@@ -48,11 +49,12 @@ function setupParserAndSessionManagement() {
     var session = require('express-session');
     app.use(session({
 	    secret: auth.makeid(),
-            resave: true,
-            saveUninitialized: true,
+        resave: true,
+        saveUninitialized: true,
 	    httpOnly: false,
 	    secure: false
     }));
+
 }
 
 function setupDB() {

@@ -88,9 +88,21 @@ router.post('/login', function(req,res) {
     else {
         auth.checkCredentials(req.body.user, req.body.pass,function(found) {
         if (found) {
+
+            function doRedirect(){
+                res.redirect(mainroutename+"/protected");
+            }
+
             console.log ("[Router] Correct creds in router");
-            req.session.user = req.body.user;
-            res.redirect(mainroutename+"/protected")
+
+            // Refresh session to prevent session fixation.
+             req.session.regenerate(function(err) {
+                req.session.user = req.body.user;
+                req.session.save(function(err) {
+                    doRedirect();
+                });
+            });
+
         }
         else
         {
