@@ -1,0 +1,32 @@
+<!-- saved from url=(0038)http://localhost:3000/sessionxss/login -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Login Page</title>
+  <style></style>
+</head>
+<body>
+  <header>
+    <p style="text-align:center;">
+      <img src="./LoginPage_files/logo.png" alt="Logo">
+    </p>
+  </header>
+  <!--<form action="http://127.0.0.1:3000/sessionxss/login" method="POST">-->
+    <form action="login.php" method="POST">
+    <p>Enter Login data</p>
+    <div>
+      <label for="user">Username:</label>
+      <input name="user"></div>
+      <br>
+      <div>
+        <label for="pass">Password:</label>
+        <input name="pass" type="password">
+      </div>
+      <br>
+      <p>
+      </p>
+      <br>
+      <button type="submit">Login</button>
+    </form>
+  </body>
+</html>

@@ -42,11 +42,17 @@ function setupParserAndSessionManagement() {
     // parse multipart/form-data
     app.use(upload.array());
 
-    var cookieParser = require('cookie-parser');
-    app.use(cookieParser());
+/*    var cookieParser = require('cookie-parser');
+    app.use(cookieParser());*/
     var auth = require('./auth');
     var session = require('express-session');
-    app.use(session({secret:auth.makeid()}));
+    app.use(session({
+	    secret: auth.makeid(),
+            resave: true,
+            saveUninitialized: true,
+	    httpOnly: false,
+	    secure: false
+    }));
 }
 
 function setupDB() {

