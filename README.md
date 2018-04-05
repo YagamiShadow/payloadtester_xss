@@ -14,46 +14,6 @@ Installation and execution see README.md in corresponding subfolders
 
 `./storedreflected/`
 
-### Access to sensitive Information in sessions
+### Advanced XSS Attack vecotres
 `./sessions/`
 
-```
-<script>
-window.location.replace("http://localhost/loginpage/LoginPage.htm");
-</script>
-```
-
-
-### HTTP Requests
-- With arbitrary content to arbitrary destinations
-
-#### Example
-
-##### Introduction 
-- XMLHttpRequest
-
-##### Permanent CSRF-Requests
-
-##### KeyLogger
-- Install KeyLogger Keyboard Event Listener addEventListener
-
-### HTML Modification
-
-#### Example
-
-##### Introduction
-- Arbitrary Modification to HTML
-
-##### Bitcoin Mining
-
-##### Fake Login Page
-- Insert Fake Login into the page
-
-### Check for Browser Exploits
-
-#### Example
-
-##### Introduction
-- Enumerate Client Information
-
-##### Heap Exploits
