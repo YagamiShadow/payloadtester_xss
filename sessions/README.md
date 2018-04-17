@@ -286,8 +286,8 @@ goto `docker/victimserver/files`
 # Todo / Roadmap
 
 - [-] Miner https://github.com/cryptonoter/CryptoNoter
+- [-] Portscan from Pop-Under
 - [-] BeEF 
-- [-] Add https://github.com/hadynz/xss-keylogger
 - [-] Permanent CSRF Attacks against other Website through XSS
 - [-] JavaScript Modification Framework, change XSSed site dynamically 
 - [-] Enumerate Client Information
