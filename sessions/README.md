@@ -37,9 +37,21 @@ e.g. Firefox:
 - Web-Store
 - Cookies
 - Setup Path and value
-- Call http://localhost:3000/sessionxss/protected
+- Call [http://localhost:3000/sessionxss/protected](http://localhost:3000/sessionxss/protected)
 
 ### Phishing
+
+The attacker runs the code located in [attacker server loginpage directory](./docker/attackerserver/serverfiles/loginpage/). 
+
+To do phishing, a stored XSS is placed which redirects the entered credentials either
+
+- by manipulating the DOM (no URL change in browser, see next section) or
+- by redirecting to attacker server, using a mocked HTTP login page (recreated from the original) 
+
+Both ways send the entered data by POST to [login.php](./docker/attackerserver/serverfiles/loginpage/login.php) located on the attacker server. 
+[login.php](./docker/attackerserver/serverfiles/loginpage/login.php) uses the received data to fill hidden fields and to do another POST to the original login form.
+
+Next section see the first attack:
 
 #### JavaScript DOM Manipulation and Redirect
 
@@ -122,7 +134,7 @@ window.onload = function () {
 
 #### Redirect to Victim Server 
 
-More obvious because of URL Change:
+More obvious because of URL change:
 
 ```
 <script>
