@@ -1,1 +1,0 @@
-# Sessions XSS Test Project
