@@ -2,7 +2,7 @@
 
 # Quick Start
 
-`docker-compose` up in `docker` folder
+`docker-compose up` in `docker` folder
 
 ## Entrypoints
 
