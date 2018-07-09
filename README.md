@@ -30,30 +30,29 @@ You can use this project to setup rapidly a possible attack and see if it works 
 
 The project can be used to educate, for example new pentester or people interested in security, about XSS.
 
-## Subfolders
+## Components
 
 ### Attacker Server
 
-`./attackerserver/`
+Folder `./attacker_server/`
 
 This contains a dockerfile representing the attacker server.
 
-### Easy stored and reflected XSS
+### Integrated external Docker Images
 
-`./victimeasyxssserver/`
+#### Easy stored and reflected XSS
 
-This cointains a small server application only to check for XSS.
+[Tiny server with XSS vulnerability](https://github.com/secf00tprint/victim_easy_xss_server).
 
-### Advanced XSS attack vectors
-`./victimsessionserver/`
+#### Advanced XSS attack vectors
 
-This folder contains a server application vulnerable to XSS which has an integrated session management. 
+[A Server application vulnerable to XSS which has an integrated session management](https://github.com/secf00tprint/victim_session_xss_server). 
 
 You can use it to check for session attacks.
 
 # Payloads
 
-## Payloads victimeasyxssserver
+## Payloads victim_easy_xss_server
 
 ### Check if XSS is possible
 
@@ -82,7 +81,7 @@ function zx(e){
 </script>
 ```
 
-If you now goto the list and enter keys they will be send to attackerserver.
+If you now goto the list and enter keys they will be send to attacker_server.
 
 ### Run JavaScript in Background
 
@@ -162,7 +161,7 @@ On CoinHive check if pending payments are coming in:
 
 ![CoinHive Screenshot](README/imgs/screenshot_coinhive.png)
 
-To run miner in pop-under use the following snippet. Change key in attacker server [html file](./docker/attackerserver/serverfiles/coins/miner.html) to your public key: 
+To run miner in pop-under use the following snippet. Change key in attacker server [html file](./docker/attacker_server/serverfiles/coins/miner.html) to your public key: 
 
 ```
 <script>
@@ -244,7 +243,7 @@ if (window.addEventListener) {
 }
 ```
 
-## Payloads victimsessionserver
+## Payloads victim_session_xss_server
 
 ### Check for session fixation
 
@@ -288,15 +287,15 @@ e.g. Firefox:
 
 ### Phishing
 
-The attacker runs the code located in [attacker server loginpage directory](./docker/attackerserver/serverfiles/loginpage/). 
+The attacker runs the code located in [attacker server loginpage directory](./docker/attacker_server/serverfiles/loginpage/). 
 
 To do phishing, a stored XSS is placed which redirects the entered credentials either
 
 - by manipulating the DOM (no URL change in browser, see next section) or
 - by redirecting to attacker server, using a mocked HTTP login page (recreated from the original) 
 
-Both ways send the entered data by POST to [login.php](./docker/attackerserver/serverfiles/loginpage/login.php) located on the attacker server. 
-[login.php](./docker/attackerserver/serverfiles/loginpage/login.php) uses the received data to fill hidden fields and to do another POST to the original login form.
+Both ways send the entered data by POST to [login.php](./docker/attacker_server/serverfiles/loginpage/login.php) located on the attacker server. 
+[login.php](./docker/attacker_server/serverfiles/loginpage/login.php) uses the received data to fill hidden fields and to do another POST to the original login form.
 
 Next section see the first attack:
 
@@ -395,39 +394,33 @@ window.location.replace("http://localhost/loginpage/LoginPage.htm");
 
 ### Single Docker Builds
 
-#### Victim Server
+#### Victim Session Server
 
-goto `victimsessionserver` folder
+- see [GitHub Repo Chapter Docker](https://github.com/secf00tprint/victim_session_xss_server#run-from-docker)
 
-`docker build -t sessionvictimserver .`
-`docker run -ti --rm -p 127.0.0.1:3000:3000 sessionvictimserver`
+#### Easy XSS Server
 
-visit [http://localhost:3000/sessionxss/login](http://localhost:3000/sessionxss/login)
+- see [GitHub Repo Chapter Docker](https://github.com/secf00tprint/victim_easy_xss_server#run-from-docker)
 
 #### Attacker Server
 
-- goto `attackerserver` folder
-- run `docker build -t xss_attack_server .`
-- run `docker run --rm -ti -p 127.0.0.1:80:80 xss_attack_server .`
+- goto `attacker_server` folder
+- run `docker build -t attacker_server .`
+- run `docker run --rm -ti -p 127.0.0.1:80:80 attacker_server .`
 
 ## Just Code 
 
 ### Attacker Server
-goto `attackerserver/serverfiles`
+
+- goto `attacker_server/serverfiles`
 
 ### Victim Session Server
 
-- goto `victimsessionserver/serverfiles`
-- run `npm install`
-- run: `node index.js`
-- goto: `http://localhost:3000/sessionxss/login`
+see [Github Repo Chapter Code](https://github.com/secf00tprint/victim_session_xss_server#run-from-code)
 
 ### Victim Easy XSS Server
 
-- goto `victimeasyxssserver/serverfiles`
-- run `npm install`
-- run: `node index.js`
-- goto: `http://localhost:3000/sessionxss/login`
+- see [GitHub Repo Chapter Code](https://github.com/secf00tprint/victim_easy_xss_server#run-from-code)
 
 # Todo / Roadmap
 
