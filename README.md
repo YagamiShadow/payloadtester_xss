@@ -287,15 +287,15 @@ e.g. Firefox:
 
 ### Phishing
 
-The attacker runs the code located in [attacker server loginpage directory](./docker/attacker_server/serverfiles/loginpage/). 
+The attacker runs the code located in [attacker server loginpage directory/](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage). 
 
 To do phishing, a stored XSS is placed which redirects the entered credentials either
 
 - by manipulating the DOM (no URL change in browser, see next section) or
 - by redirecting to attacker server, using a mocked HTTP login page (recreated from the original) 
 
-Both ways send the entered data by POST to [login.php](./docker/attacker_server/serverfiles/loginpage/login.php) located on the attacker server. 
-[login.php](./docker/attacker_server/serverfiles/loginpage/login.php) uses the received data to fill hidden fields and to do another POST to the original login form.
+Both ways send the entered data by POST to [login.php](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage/login.php) located on the attacker server. 
+[login.php](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage/login.php) uses the received data to fill hidden fields and to do another POST to the original login form.
 
 Next section see the first attack:
 
