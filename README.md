@@ -287,7 +287,7 @@ e.g. Firefox:
 
 ### Phishing
 
-The attacker runs the code located in [attacker server loginpage directory/](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage). 
+The attacker runs the code located in [attacker server loginpage directory](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage). 
 
 To do phishing, a stored XSS is placed which redirects the entered credentials either
 
