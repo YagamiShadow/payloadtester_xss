@@ -126,7 +126,7 @@ function httpGet(theUrl)
 
 function checkIP(ip)
 {
- /*   var prefix_ip = "";
+    var prefix_ip = "";
     var net_ips = [];
     var targets = [];
     net_ips.push(parseInt(ip.split(".")[2]));
@@ -145,16 +145,12 @@ function checkIP(ip)
             targets.push(prefix_ip + net_ips[j].toString() + "." + ip.toString());
         }
     }
-*/
-    var targets = [];
-    targets.push("github.com");
     for (var i = 0; i < targets.length; i++) {
         var p = new Ping();
         p.ping(targets[i], function (err, pong, target) {
             if (!err) {
                 if (pong) {
                     httpGet("http://localhost/ip?"+target);
-                    // console.log(target + " " + pong + " reachable");
                 }
             }
         });
