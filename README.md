@@ -16,7 +16,7 @@ This project is intended to show and test various XSS Payloads.
 
 ### Target Audiences
 
-#### Persuasion 
+#### Persuasion
 
 Often it is difficult to show what can be done with an XSS finding. For example if a pentester wants to persuade a customer of a finding.
 
@@ -46,7 +46,7 @@ This contains a dockerfile representing the attacker server.
 
 #### Advanced XSS attack vectors
 
-[A Server application vulnerable to XSS which has an integrated session management](https://github.com/secf00tprint/victim_session_xss_server). 
+[A Server application vulnerable to XSS which has an integrated session management](https://github.com/secf00tprint/victim_session_xss_server).
 
 You can use it to check for session attacks.
 
@@ -70,7 +70,7 @@ If you now goto the list and enter keys they will be send to attacker_server.
 
 #### Pop-Under
 
-We create a pop-under where our javascript hook lives. 
+We create a pop-under where our javascript hook lives.
 
 Following payload works on the listed browsers if you allow popups for the side:
 
@@ -86,7 +86,7 @@ Start Crypto-Miner in the Pop-Under:
 
 Sign up an account on [CoinHive](https://coinhive.com/)
 
-Payload (change key to your Public Key from CoinHive). 
+Payload (change key to your Public Key from CoinHive).
 
 ```
 <script>
@@ -105,9 +105,15 @@ On CoinHive check if pending payments are coming in:
 
 ![CoinHive Screenshot](README/imgs/screenshot_coinhive.png)
 
-To run miner in pop-under use the following snippet. Change key in attacker server [html file](./docker/attacker_server/serverfiles/coins/miner.html) to your public key: 
+To run miner in pop-under use the following snippet. Change key in attacker server [html file](./docker/attacker_server/serverfiles/coins/miner.html) to your public key:
 
 [payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/popunder_cryptominer.js)
+
+### HTTP Search Ping Sweep Like
+
+You can search for nearby servers in the net of the victim: [payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/pingsweep.js)
+
+This code tries to determine the local IP from the victim and searches in the IP Range around sending positive findings to the attacker server.
 
 ### Run JavaScript from Attacker-Server
 
@@ -192,14 +198,14 @@ e.g. Firefox:
 
 ### Phishing
 
-The attacker runs the code located in [attacker server loginpage directory](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage). 
+The attacker runs the code located in [attacker server loginpage directory](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage).
 
 To do phishing, a stored XSS is placed which redirects the entered credentials either
 
 - by manipulating the DOM (no URL change in browser, see next section) or
-- by redirecting to attacker server, using a mocked HTTP login page (recreated from the original) 
+- by redirecting to attacker server, using a mocked HTTP login page (recreated from the original)
 
-Both ways send the entered data by POST to [login.php](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage/login.php) located on the attacker server. 
+Both ways send the entered data by POST to [login.php](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage/login.php) located on the attacker server.
 [login.php](https://github.com/secf00tprint/payloadtester_xss/tree/master/attacker_server/serverfiles/loginpage/login.php) uses the received data to fill hidden fields and to do another POST to the original login form.
 
 Next section see the first attack:
@@ -210,7 +216,7 @@ Payload:
 
 [payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/phishing_dommanipulation.js)
 
-#### Redirect to Victim Server 
+#### Redirect to Victim Server
 
 More obvious because of URL change:
 
@@ -222,7 +228,7 @@ window.location.replace("http://localhost/loginpage/LoginPage.htm");
 
 # Configuration in more Detail
 
-## Docker 
+## Docker
 
 ### Single Docker Builds
 
@@ -240,7 +246,7 @@ window.location.replace("http://localhost/loginpage/LoginPage.htm");
 - run `docker build -t attacker_server .`
 - run `docker run --rm -ti -p 127.0.0.1:80:80 attacker_server .`
 
-## Just Code 
+## Just Code
 
 ### Attacker Server
 
@@ -257,12 +263,10 @@ see [Github Repo Chapter Code](https://github.com/secf00tprint/victim_session_xs
 # Todo / Roadmap
 
 - [-] Portscan from Pop-Under
-- [-] BeEF 
+- [-] BeEF
 - [-] Permanent CSRF Attacks against other Website through XSS
-- [-] JavaScript Modification Framework, change XSSed site dynamically 
+- [-] JavaScript Modification Framework, change XSSed site dynamically
 - [-] Enumerate Client Information
 - [-] use Client Information to list exploits
 - [-] Heap Exploits
 - [-] Spectre
-
-
