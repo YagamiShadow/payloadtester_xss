@@ -70,7 +70,7 @@ If you now goto the list and enter keys they will be send to attacker_server.
 
 #### Pop-Under
 
-We create a pop-under where our javascript hook lives.
+We create a pop-under where our javascript hook lives. A good introduction to what a pop-under is and the main development concepts behind it can be found at this [youtube video](https://www.youtube.com/watch?v=8UqHCrGdxOM).
 
 Following payload works on the listed browsers if you allow popups for the side:
 
