@@ -74,7 +74,7 @@ If you now goto the list and enter keys they will be send to attacker_server.
 
 #### Pop-Under
 
-We create a pop-under where our javascript hook lives. A good introduction to what a pop-under is and the main development concepts behind it can be found at this [youtube video](https://www.youtube.com/watch?v=8UqHCrGdxOM).
+We create a pop-under where our javascript hook lives. A pop-under uses two main concepts: It uses focus and blur javascript methods to move a pop-up in the background.
 
 Following payload works on the listed browsers if you allow popups for the side:
 
@@ -83,6 +83,11 @@ Following payload works on the listed browsers if you allow popups for the side:
 - Safari 11.0.3
 
 [payload_code](https://github.com/secf00tprint/payloadtester_xss/blob/master/payloads/popunder.js)
+
+To set the content of the pop-under start a server on 127.0.0.1:8000 serving a test.html,
+e.g.
+
+`echo "Hi" > test.html; python -m SimpleHTTPServer`
 
 #### Crypto-Miner
 
