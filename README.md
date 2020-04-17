@@ -2,13 +2,17 @@
 
 # Quick Start
 
-`docker-compose up` in `docker` folder
+`docker-compose up`
 
 ## Entrypoints
 
 - Victim Easy XSS Server: `http://localhost:1185/`
 - Victim Session Server: `http://localhost:3000`
 - Attacker: See Docker Logs
+
+## FAQ
+
+If `docker-compose` doesn't start, look if ports 80, 1185 and 3000 aren't in use.
 
 ## Introduction
 
